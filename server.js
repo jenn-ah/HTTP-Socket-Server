@@ -7,7 +7,6 @@ const server = net.createServer((connectionRequest) => {
   connectionRequest.setEncoding('utf8');
   connectionRequest.on('data', (data) => {
     let contentType = 'text/html';
-    //let _404Reason = '1.0 404 Not Found';
     let reasonPhrase = '1.1 200 OK';
 
     let response = '';
@@ -43,6 +42,7 @@ const server = net.createServer((connectionRequest) => {
     } else if (finalSplit === '/css/styles.css' || finalSplit === 'css/styles.css') {
 
       contentType = 'text/css';
+      // connectionRequest.setContentType("text/css");
       response = response.concat(elements.styles);
       console.log('cssRes', response);
       connectionRequest.write(response);

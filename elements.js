@@ -4,7 +4,7 @@ module.exports = {
   <head>
     <meta charset="UTF-8">
     <title>Element not found!</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
   </head>
   <body>
     <h1>404</h1>
