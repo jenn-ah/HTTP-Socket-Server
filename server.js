@@ -8,12 +8,12 @@ const server = net.createServer((connectionRequest) => {
   connectionRequest.on('data', (data) => {
     let contentType = 'text/html';
     let reasonPhrase = '1.1 200 OK';
-
     let response = '';
     response = response.concat(`HTTP/${reasonPhrase}\n`);
     response = response.concat(`Content-Type: ${contentType}\n`);
     response = response.concat(`\n`);
 
+    // console.log('data', data);
 
     let splitData = data.split(/\r\n|\r|\n/);
     let splitAgain = splitData[0].split();
@@ -24,34 +24,38 @@ const server = net.createServer((connectionRequest) => {
     if (finalSplit === 'hydrogen' || finalSplit === '/hydrogen' || finalSplit === '/hydrogen.html' || finalSplit === 'hydrogen.html') {
 
       response = response.concat(elements.hydrogen);
-      console.log('hydro', response);
+      // console.log('hydro', response);
       connectionRequest.write(response);
 
     } else if (finalSplit === 'helium' || finalSplit === '/helium' || finalSplit === '/helium.html' || finalSplit === 'helium.html') {
 
       response = response.concat(elements.helium);
-      console.log('helium', response);
+      // console.log('helium', response);
       connectionRequest.write(response);
 
     } else if (finalSplit === '/' || finalSplit === '/index.html' || finalSplit === 'index') {
 
       response = response.concat(elements.index);
-      console.log('index', response);
+      // console.log('index', response);
       connectionRequest.write(response);
 
     } else if (finalSplit === '/css/styles.css' || finalSplit === 'css/styles.css') {
 
-      contentType = 'text/css';
+     // contentType = 'text/css';
       // connectionRequest.setContentType("text/css");
-      response = response.concat(elements.styles);
-      console.log('cssRes', response);
-      connectionRequest.write(response);
+      
+      let cssResp = '';
+      cssResp = cssResp.concat(`HTTP/1.1 200 OK'\n`);
+      cssResp = cssResp.concat(`Content-Type: text/css\n`);
+      cssResp = cssResp.concat(`\n`);
+      cssResp = cssResp.concat(elements.styles);
+      //console.log('cssRes', cssResp);
+      connectionRequest.write(cssResp);
 
     } else {
 
       reasonPhrase = '1.0 404 Not Found';
       response = response.concat(elements._404);
-      console.log('404res', response);
       connectionRequest.write(response);
     }
     return connectionRequest.end();
