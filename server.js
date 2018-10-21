@@ -13,8 +13,6 @@ const server = net.createServer((connectionRequest) => {
     response = response.concat(`Content-Type: ${contentType}\n`);
     response = response.concat(`\n`);
 
-    // console.log('data', data);
-
     let splitData = data.split(/\r\n|\r|\n/);
     let splitAgain = splitData[0].split();
     let splitThrice = splitAgain[0].split(' ');
@@ -40,9 +38,6 @@ const server = net.createServer((connectionRequest) => {
       connectionRequest.write(response);
 
     } else if (finalSplit === '/css/styles.css' || finalSplit === 'css/styles.css') {
-
-     // contentType = 'text/css';
-      // connectionRequest.setContentType("text/css");
       
       let cssResp = '';
       cssResp = cssResp.concat(`HTTP/1.1 200 OK'\n`);
